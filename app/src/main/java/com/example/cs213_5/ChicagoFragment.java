@@ -63,8 +63,6 @@ public class ChicagoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chicago, container, false);
-        addButton = view.findViewById(R.id.addButton);
-        removeButton = view.findViewById(R.id.remButton);
         orderButton = view.findViewById(R.id.orderButton);
         availableToppings = view.findViewById(R.id.availableToppings);
         selectedToppings = view.findViewById(R.id.selectedToppings);

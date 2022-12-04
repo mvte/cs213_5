@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/pizzaImage"
         android:layout_width="222dp"
         android:layout_height="152dp"
         android:layout_marginTop="12dp"
@@ -30,57 +30,57 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/size"
         android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:entries="@android:array/emailAddressTypes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/flavors"
         android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:entries="@android:array/emailAddressTypes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
     <ListView
-        android:id="@+id/list2"
+        android:id="@+id/selectedToppings"
         android:layout_width="140dp"
         android:layout_height="200dp"
         android:entries="@android:array/emailAddressTypes"
-        app:layout_constraintBottom_toBottomOf="@+id/list1"
-        app:layout_constraintEnd_toEndOf="@+id/spinner"
+        app:layout_constraintBottom_toBottomOf="@+id/availableToppings"
+        app:layout_constraintEnd_toEndOf="@+id/size"
         app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintStart_toStartOf="@+id/size"
+        app:layout_constraintTop_toBottomOf="@+id/size"
         app:layout_constraintVertical_bias="1.0" />
 
     <ListView
-        android:id="@+id/list1"
+        android:id="@+id/availableToppings"
         android:layout_width="140dp"
         android:layout_height="200dp"
         android:layout_marginTop="40dp"
         android:entries="@android:array/emailAddressTypes"
-        app:layout_constraintEnd_toEndOf="@+id/spinner3"
+        app:layout_constraintEnd_toEndOf="@+id/flavors"
         app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="@+id/spinner3"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintStart_toStartOf="@+id/flavors"
+        app:layout_constraintTop_toBottomOf="@+id/flavors" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/orderButton"
         android:layout_width="170dp"
         android:layout_height="48dp"
         android:layout_marginTop="228dp"
         android:text="@string/add_to_order"
-        app:layout_constraintEnd_toEndOf="@+id/list1"
+        app:layout_constraintEnd_toEndOf="@+id/availableToppings"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/list1"
+        app:layout_constraintStart_toStartOf="@+id/availableToppings"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
@@ -90,10 +90,10 @@
         android:layout_marginTop="64dp"
         android:text="@string/toppings_label"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="@+id/size"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/spinner3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/flavors"
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
     <EditText
         android:id="@+id/price"
@@ -104,11 +104,11 @@
         android:ems="10"
         android:hint="@string/price_label"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="@+id/list2"
+        app:layout_constraintBottom_toBottomOf="@+id/orderButton"
+        app:layout_constraintEnd_toEndOf="@+id/selectedToppings"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/list2"
-        app:layout_constraintTop_toBottomOf="@+id/list2"
+        app:layout_constraintStart_toStartOf="@+id/selectedToppings"
+        app:layout_constraintTop_toBottomOf="@+id/selectedToppings"
         app:layout_constraintVertical_bias="0.954" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
