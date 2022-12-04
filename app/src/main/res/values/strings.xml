@@ -17,4 +17,17 @@
     <string name="add_to_order">Add To Order</string>
     <string name="price_label">Price</string>
 
+    <!-- flavor and size spinner strings !-->
+    <string-array name="size_array">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+    <string-array name="flavor_array">
+        <item>Build Your Own</item>
+        <item>Deluxe</item>
+        <item>BBQ Chicken</item>
+        <item>Meatzza</item>
+    </string-array>
+
 </resources>
