@@ -29,5 +29,19 @@
         <item>BBQ Chicken</item>
         <item>Meatzza</item>
     </string-array>
+    <string-array name="toppings_array">
+        <item>Anchovies</item>
+        <item>BBQ Chicken</item>
+        <item>Beef</item>
+        <item>Cheddar</item>
+        <item>Green Pepper</item>
+        <item>Ham</item>
+        <item>Mushroom</item>
+        <item>Olives</item>
+        <item>Pepperoni</item>
+        <item>Pineapple</item>
+        <item>Provolone</item>
+        <item>Sausage</item>
+    </string-array>
 
 </resources>

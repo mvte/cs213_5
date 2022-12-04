@@ -69,6 +69,9 @@ public class ChicagoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chicago, container, false);
         orderButton = view.findViewById(R.id.orderButton);
         availableToppings = view.findViewById(R.id.availableToppings);
+        ArrayAdapter<CharSequence> toppingsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.toppings_array, layout.simple_list_item_1);
+        availableToppings.setAdapter(toppingsAdapter);
+
         selectedToppings = view.findViewById(R.id.selectedToppings);
 
         size = view.findViewById(R.id.size);
@@ -79,12 +82,13 @@ public class ChicagoFragment extends Fragment {
         flavors = view.findViewById(R.id.flavors);
         ArrayAdapter<CharSequence> flavorAdapter = ArrayAdapter.createFromResource(getContext(), R.array.flavor_array, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         flavorAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        size.setAdapter(flavorAdapter);
+        flavors.setAdapter(flavorAdapter);
 
         pizzaImg = view.findViewById(R.id.pizzaImage);
 
         orderButton.setOnClickListener(onOrderClick);
         size.setOnItemSelectedListener(onSizeSelect);
+        flavors.setOnItemSelectedListener(onFlavorSelect);
         // Inflate the layout for this fragment
         return view;
     }
