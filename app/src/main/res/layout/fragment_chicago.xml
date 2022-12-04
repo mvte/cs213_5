@@ -8,7 +8,7 @@
     tools:context=".ChicagoFragment" >
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/chicagoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -19,77 +19,77 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/pizzaImage"
         android:layout_width="222dp"
         android:layout_height="152dp"
         android:layout_marginTop="25dp"
         android:src="@drawable/chicago_byo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/chicagoText" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/flavors"
         android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="20dp"
         android:entries="@android:array/emailAddressTypes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/size"
         android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="44dp"
         android:entries="@android:array/emailAddressTypes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
     <ListView
-        android:id="@+id/list2"
+        android:id="@+id/selectedToppings"
         android:layout_width="140dp"
         android:layout_height="200dp"
         android:layout_marginTop="156dp"
         android:layout_marginEnd="40dp"
         android:entries="@android:array/emailAddressTypes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addButton"
         android:layout_width="94dp"
         android:layout_height="49dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="12dp"
         android:text="add >>"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list1" />
+        app:layout_constraintTop_toBottomOf="@+id/availableToppings" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/remButton"
         android:layout_width="94dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="64dp"
         android:text="<< Rem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list2" />
+        app:layout_constraintTop_toBottomOf="@+id/selectedToppings" />
 
     <ListView
-        android:id="@+id/list1"
+        android:id="@+id/availableToppings"
         android:layout_width="140dp"
         android:layout_height="200dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="156dp"
         android:entries="@android:array/emailAddressTypes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/orderButton"
         android:layout_width="193dp"
         android:layout_height="48dp"
         android:layout_marginBottom="40dp"
@@ -99,7 +99,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/toppingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
@@ -108,6 +108,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pizzaImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
