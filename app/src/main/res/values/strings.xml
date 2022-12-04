@@ -8,6 +8,13 @@
     <string name="new_york_label">New York</string>
     <string name="current_order_label">Current Order</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- pizza fragment strings !-->
+    <string name="chicago_pizza_title">Chicago Style Pizza</string>
+    <string name="new_york_pizza_title">New York Style Pizza</string>
+    <string name="toppings_label">Toppings</string>
+    <string name="add_button">Add</string>
+    <string name="remove_button">Remove</string>
+    <string name="add_to_order">Add To Order</string>
+    <string name="price_label">Price</string>
+
 </resources>
