@@ -103,7 +103,7 @@
         android:editable="false"
         android:ems="10"
         android:hint="@string/price_label"
-        android:inputType="textPersonName"
+        android:inputType="none"
         app:layout_constraintBottom_toBottomOf="@+id/orderButton"
         app:layout_constraintEnd_toEndOf="@+id/selectedToppings"
         app:layout_constraintHorizontal_bias="1.0"
