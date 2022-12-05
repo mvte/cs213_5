@@ -14,12 +14,13 @@ import java.util.ArrayList;
 public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.MyViewHolder> {
     /** Needed for inflating layout **/
     private Context context;
-
     private ArrayList<Pizza> pizzas;
+    private RecyclerViewInterface rvInterface;
 
-    public OrderRecyclerViewAdapter(Context context, Order order) {
+    public OrderRecyclerViewAdapter(Context context, Order order, RecyclerViewInterface rvInterface) {
         this.context = context;
         this.pizzas = order.getPizzas();
+        this.rvInterface = rvInterface;
     }
 
     @NonNull
@@ -28,7 +29,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.pizza_card, parent, false);
 
-        return new OrderRecyclerViewAdapter.MyViewHolder(view);
+        return new OrderRecyclerViewAdapter.MyViewHolder(view, rvInterface);
     }
 
     @Override
@@ -56,13 +57,25 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvSize, tvContents, tvPrice;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface rvInterface) {
             super(itemView);
 
             tvName = itemView.findViewById(R.id.pizza_name);
             tvSize = itemView.findViewById(R.id.pizza_size);
             tvContents = itemView.findViewById(R.id.pizza_toppings);
             tvPrice = itemView.findViewById(R.id.pizza_price);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(rvInterface != null) {
+                        int pos = getAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION) {
+                            rvInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

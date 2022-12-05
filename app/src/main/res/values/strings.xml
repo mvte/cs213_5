@@ -74,6 +74,8 @@
     <string name="subtotal">Subtotal</string>
     <string name="taxes">Taxes</string>
     <string name="total">Total</string>
+    <string name="order_success">Order Successfully Placed</string>
+    <string name="order_clear">Order Cleared</string>
 
     <!-- pizza card template strings -->
     <string name="pizza_name_template">Pizza Name</string>

@@ -74,7 +74,7 @@ public class Order implements Customizable{
      * Calculates the order's subtotal.
      * @return The subtotal of the order.
      */
-    private double calculateSubtotal() {
+    public double calculateSubtotal() {
         double subtotal = 0;
         for(Pizza p : pizzas) {
             subtotal += p.price();
@@ -87,6 +87,7 @@ public class Order implements Customizable{
      * @return The subtotal of the order.
      */
     public double getSubtotal() {
+        subtotal = calculateSubtotal();
         return subtotal;
     }
 
