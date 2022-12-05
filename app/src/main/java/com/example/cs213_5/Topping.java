@@ -44,6 +44,16 @@ public enum Topping {
         this.topping = topping;
     }
 
+    public static Topping getTopping(String str) {
+        Topping[] toppings = Topping.values();
+        for (Topping t : toppings) {
+            if (str.equalsIgnoreCase(t.topping)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     /**
      * Converts the topping enum into a readable format, consisting
      * of the topping name as a String.
@@ -53,4 +63,6 @@ public enum Topping {
     public String toString() {
         return topping;
     }
+
+
 }

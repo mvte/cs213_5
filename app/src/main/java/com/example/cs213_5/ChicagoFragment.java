@@ -2,6 +2,8 @@ package com.example.cs213_5;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.*;
 import android.view.ViewGroup;
@@ -76,10 +78,10 @@ public class ChicagoFragment extends Fragment {
         currPrice = view.findViewById(R.id.chicago_price);
         crustType = view.findViewById(R.id.crustType);
         availableToppings = view.findViewById(R.id.availableToppings);
-        ArrayAdapter<CharSequence> toppingsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.toppings_array, layout.simple_list_item_1);
+        ArrayAdapter<CharSequence> toppingsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.toppings_array, layout.simple_list_item_multiple_choice);
         availableToppings.setAdapter(toppingsAdapter);
         availableToppings.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
+        setupToppingsSelectListener();
         size = view.findViewById(R.id.size);
         ArrayAdapter<CharSequence> sizeAdapter = ArrayAdapter.createFromResource(getContext(), R.array.size_array, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         sizeAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
@@ -97,6 +99,32 @@ public class ChicagoFragment extends Fragment {
         crustType.setText(R.string.pan_crust);
         // Inflate the layout for this fragment
         return view;
+    }
+
+    // TODO: fix toppings selector
+    private void setupToppingsSelectListener() {
+        availableToppings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                SparseBooleanArray checkedToppings = availableToppings.getCheckedItemPositions();
+                if (checkedToppings != null) {
+                    for (int i = 0; i < checkedToppings.size(); i++) {
+                        if (checkedToppings.valueAt(i)) {
+                            Topping topp = Topping.getTopping(availableToppings.getAdapter().getItem(checkedToppings.keyAt(i)).toString());
+                            if (!pizza.add(topp)) {
+                                Toast.makeText(getActivity(), "Too many toppings selected, maximum 7", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                }
+                currPrice.setText(String.valueOf(pizza.price()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private View.OnClickListener onOrderClick = new View.OnClickListener() {
@@ -139,28 +167,25 @@ public class ChicagoFragment extends Fragment {
                 pizzaImg.setImageResource(R.drawable.chicago_byo);
                 pizza = createPizza("Build Your Own", selectedSize);
                 crustType.setText(R.string.pan_crust);
-                availableToppings.setEnabled(true);
+                availableToppings.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.toppings_array, layout.simple_list_item_multiple_choice));
             }
             else if (selected.equalsIgnoreCase("Deluxe")) {
                 pizzaImg.setImageResource(R.drawable.chicago_deluxe);
                 pizza = createPizza("Deluxe", selectedSize);
                 crustType.setText(R.string.deep_dish_crust);
-                selectedTop = ArrayAdapter.createFromResource(getContext(), R.array.deluxe_toppings, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-                availableToppings.setEnabled(false);
+                availableToppings.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.deluxe_toppings, layout.simple_list_item_1));
             }
             else if (selected.equalsIgnoreCase("BBQ Chicken")) {
                 pizzaImg.setImageResource(R.drawable.chicago_bbqchicken);
                 pizza = createPizza("BBQ Chicken", selectedSize);
                 crustType.setText(R.string.pan_crust);
-                selectedTop = ArrayAdapter.createFromResource(getContext(), R.array.BBQ_chicken_toppings, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-                availableToppings.setEnabled(false);
+                availableToppings.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.BBQ_chicken_toppings, layout.simple_list_item_1));
             }
             else {
                 pizzaImg.setImageResource(R.drawable.chicago_meatzza);
                 pizza = createPizza("Meatzza", selectedSize);
                 crustType.setText(R.string.stuffed_crust);
-                selectedTop = ArrayAdapter.createFromResource(getContext(), R.array.meatzza_toppings, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-                availableToppings.setEnabled(false);
+                availableToppings.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.meatzza_toppings, layout.simple_list_item_1));
             }
             currPrice.setText(String.valueOf(pizza.price()));
         }
@@ -189,17 +214,6 @@ public class ChicagoFragment extends Fragment {
         }
         return create;
     }
-
-    //TODO: finish this method using only one listView
-    /*
-    public void onAddToppingClicked() {
-        Object selected = availableToppings.getSelectedItem();
-        int numToppingsCheck;
-        if (numToppingsCheck > 7) {
-            Toast.makeText(getActivity(), "Input not valid: the maximum number of toppings is 7", Toast.LENGTH_LONG).show();
-            return;
-        }
-    }*/
 
     //TODO: implement this (currently a placeholder to test order recyclerview)
     public void addToOrder() {
