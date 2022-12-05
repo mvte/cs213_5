@@ -139,16 +139,15 @@ public class ChicagoFragment extends Fragment {
             String flavorSelected = (String) flavors.getSelectedItem();
             if (selected.equalsIgnoreCase("Small")) {
                 pizza.setSize(Size.SMALL);
-                currPrice.setText(String.valueOf(pizza.price()));
             }
             else if (selected.equalsIgnoreCase("Medium")) {
                 pizza.setSize(Size.MEDIUM);
-                currPrice.setText(String.valueOf(pizza.price()));
             }
             else if (selected.equalsIgnoreCase("Large")) {
                 pizza.setSize(Size.LARGE);
-                currPrice.setText(String.format("$%.2f", pizza.price()));
             }
+
+            currPrice.setText(String.format("$%.2f", pizza.price()));
         }
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -212,15 +211,19 @@ public class ChicagoFragment extends Fragment {
         return create;
     }
 
-    //TODO: implement this (currently a placeholder to test order recyclerview)
-    public void addToOrder() {
-        int rand = (int)(Math.random()*4+1);
-        Pizza pizza = createPizza("Build Your Own", 1);
-        if(rand==2) pizza = createPizza("Deluxe", 1);
-        if(rand==3) pizza = createPizza("BBQ Chicken", 1);
-        if(rand==4) pizza = createPizza("Meatzza", 1);
-
-        pizza.setSize(Size.MEDIUM);
+    private void addToOrder() {
         MainActivity.currentOrder.add(pizza);
+
+        pizza = createPizza("Build Your Own", 1);
+        resetFields();
+    }
+
+    private void resetFields() {
+        size.setSelection(0);
+        flavors.setSelection(0);
+        crustType.setText(R.string.pan_crust);
+        for(int i = 0; i < Topping.values().length; i++) {
+            availableToppings.setItemChecked(i, false);
+        }
     }
 }
