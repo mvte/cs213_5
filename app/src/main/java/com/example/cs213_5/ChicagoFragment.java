@@ -3,6 +3,7 @@ package com.example.cs213_5;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.*;
@@ -103,26 +104,22 @@ public class ChicagoFragment extends Fragment {
 
     // TODO: fix toppings selector
     private void setupToppingsSelectListener() {
-        availableToppings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        availableToppings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                SparseBooleanArray checkedToppings = availableToppings.getCheckedItemPositions();
-                if (checkedToppings != null) {
-                    for (int i = 0; i < checkedToppings.size(); i++) {
-                        if (checkedToppings.valueAt(i)) {
-                            Topping topp = Topping.getTopping(availableToppings.getAdapter().getItem(checkedToppings.keyAt(i)).toString());
-                            if (!pizza.add(topp)) {
-                                Toast.makeText(getActivity(), "Too many toppings selected, maximum 7", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Topping topp = Topping.getTopping(availableToppings.getAdapter().getItem(position).toString());
+                if(availableToppings.isItemChecked(position)) {
+                    if(!pizza.add(topp)) {
+                        Toast.makeText(getActivity(), "Too many toppings selected, maximum 7", Toast.LENGTH_SHORT).show();
+                        availableToppings.setItemChecked(position, false);
+                    }
+                } else {
+                    if(!pizza.remove(topp)) {
+                        Log.e("ChicagoFragment", "unable to deselect item!");
                     }
                 }
-                currPrice.setText(String.valueOf(pizza.price()));
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+                currPrice.setText(String.format("$%.2f", pizza.price()));
             }
         });
     }
@@ -141,16 +138,16 @@ public class ChicagoFragment extends Fragment {
             String selected = (String) adapterView.getItemAtPosition(position);
             String flavorSelected = (String) flavors.getSelectedItem();
             if (selected.equalsIgnoreCase("Small")) {
-                pizza = createPizza(flavorSelected, Size.SMALL.getIntSize());
+                pizza.setSize(Size.SMALL);
                 currPrice.setText(String.valueOf(pizza.price()));
             }
             else if (selected.equalsIgnoreCase("Medium")) {
-                pizza = createPizza(flavorSelected, Size.MEDIUM.getIntSize());
+                pizza.setSize(Size.MEDIUM);
                 currPrice.setText(String.valueOf(pizza.price()));
             }
             else if (selected.equalsIgnoreCase("Large")) {
-                pizza = createPizza(flavorSelected, Size.LARGE.getIntSize());
-                currPrice.setText(String.valueOf(pizza.price()));
+                pizza.setSize(Size.LARGE);
+                currPrice.setText(String.format("$%.2f", pizza.price()));
             }
         }
         @Override
