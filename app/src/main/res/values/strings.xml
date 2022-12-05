@@ -2,7 +2,7 @@
     <string name="app_name">RU Pizzeria</string>
     <string name="welcome_text">Welcome to RU Pizzeria</string>
 
-    <!-- bottom navigation bar  -->
+    <!-- bottom navigation bar -->
     <string name="store_orders_label">Store Orders</string>
     <string name="chicago_label">Chicago</string>
     <string name="new_york_label">New York</string>
@@ -43,5 +43,20 @@
         <item>Provolone</item>
         <item>Sausage</item>
     </string-array>
+
+    <!-- order -->
+    <string name="empty_order_text">There are no pizzas in this order.</string>
+    <string name="order_id_label">Order ID#</string>
+    <string name="place_order_button">Place Order</string>
+    <string name="clear_order_button">Clear Order</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="taxes">Taxes</string>
+    <string name="total">Total</string>
+
+    <!-- pizza card template strings -->
+    <string name="pizza_name_template">Pizza Name</string>
+    <string name="pizza_size_template">Pizza Size</string>
+    <string name="toppings_template">toppings, toppings, toppings</string>
+    <string name="price_template">$XX.XX</string>
 
 </resources>

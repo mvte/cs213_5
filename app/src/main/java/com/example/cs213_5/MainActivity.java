@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     StoreOrdersFragment storeOrdersFragment;
     TextView welcomeTextView;
 
+    public static Order currentOrder = new Order();
+    public static StoreOrder storeOrder = new StoreOrder();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,4 +62,5 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
         return false;
     }
+
 }
