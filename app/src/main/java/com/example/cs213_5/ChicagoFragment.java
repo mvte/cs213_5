@@ -214,7 +214,7 @@ public class ChicagoFragment extends Fragment {
     private void addToOrder() {
         MainActivity.currentOrder.add(pizza);
 
-        pizza = createPizza("Build Your Own", 1);
+        pizza = createPizza("Build Your Own", Size.SMALL.getIntSize());
         resetFields();
     }
 
