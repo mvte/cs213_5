@@ -166,6 +166,7 @@ public class ChicagoFragment extends Fragment {
                 availableToppings.setEnabled(false);
             }
             pizza.setSize(s);
+            currPrice.setText(String.valueOf(pizza.price()));
         }
 
         @Override
