@@ -112,6 +112,7 @@ public class ChicagoFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Toast.makeText(getActivity(), "Pizza added to order", Toast.LENGTH_SHORT).show();
+            addToOrder();
         }
     };
 
@@ -187,5 +188,17 @@ public class ChicagoFragment extends Fragment {
             return chicagoFactory.createMeatzza();
         }
         return null;
+    }
+
+    //TODO: implement this (currently a placeholder to test order recyclerview)
+    public void addToOrder() {
+        int rand = (int)(Math.random()*4+1);
+        Pizza pizza = createPizza("Build Your Own");
+        if(rand==2) pizza = createPizza("Deluxe");
+        if(rand==3) pizza = createPizza("BBQ Chicken");
+        if(rand==4) pizza = createPizza("Meatzza");
+
+        pizza.setSize(Size.MEDIUM);
+        MainActivity.currentOrder.add(pizza);
     }
 }
