@@ -63,4 +63,14 @@ public enum Size {
         }
         return null;
     }
+
+    public static Size getSize(int size_n) {
+        Size[] sizes = Size.values();
+        for (Size s : sizes) {
+            if (size_n == s.size_n) {
+                return s;
+            }
+        }
+        return null;
+    }
 }

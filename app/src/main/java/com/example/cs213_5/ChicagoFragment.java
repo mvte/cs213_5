@@ -25,9 +25,9 @@ public class ChicagoFragment extends Fragment {
 
     private ImageView pizzaImg;
     private Spinner flavors, size;
-    private ListView availableToppings, selectedToppings;
+    private ListView availableToppings;
     private Button orderButton;
-    private TextView currPrice;
+    private TextView currPrice, crustType;
 
     /** the factory that makes Chicago Pizzas */
     private PizzaFactory chicagoFactory = new ChicagoPizza();
@@ -70,40 +70,31 @@ public class ChicagoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chicago, container, false);
         orderButton = view.findViewById(R.id.orderButton);
         currPrice = view.findViewById(R.id.chicago_price);
+        crustType = view.findViewById(R.id.crustType);
         availableToppings = view.findViewById(R.id.availableToppings);
         ArrayAdapter<CharSequence> toppingsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.toppings_array, layout.simple_list_item_1);
         availableToppings.setAdapter(toppingsAdapter);
-
-        selectedToppings = view.findViewById(R.id.selectedToppings);
+        availableToppings.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         size = view.findViewById(R.id.size);
         ArrayAdapter<CharSequence> sizeAdapter = ArrayAdapter.createFromResource(getContext(), R.array.size_array, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         sizeAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         size.setAdapter(sizeAdapter);
-
         flavors = view.findViewById(R.id.flavors);
         ArrayAdapter<CharSequence> flavorAdapter = ArrayAdapter.createFromResource(getContext(), R.array.flavor_array, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         flavorAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         flavors.setAdapter(flavorAdapter);
-
         pizzaImg = view.findViewById(R.id.pizzaImage);
-
         orderButton.setOnClickListener(onOrderClick);
         size.setOnItemSelectedListener(onSizeSelect);
         flavors.setOnItemSelectedListener(onFlavorSelect);
-
-        pizza = createPizza("Build Your Own");
-        pizza.setSize(Size.SMALL);
-        currPrice.setEnabled(false);
+        pizza = createPizza("Build Your Own", Size.SMALL.getIntSize());
         currPrice.setText(String.valueOf(pizza.price()));
-
-        ArrayAdapter<CharSequence> selectedToppingsAdapter = new ArrayAdapter(getContext(), layout.simple_list_item_1, pizza.getToppings());
-        selectedToppings.setAdapter(selectedToppingsAdapter);
+        crustType.setText(R.string.pan_crust);
         // Inflate the layout for this fragment
         return view;
     }
@@ -121,17 +112,16 @@ public class ChicagoFragment extends Fragment {
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
             String selected = (String) adapterView.getItemAtPosition(position);
             String flavorSelected = (String) flavors.getSelectedItem();
-            pizza = createPizza(flavorSelected);
             if (selected.equalsIgnoreCase("Small")) {
-                pizza.setSize(Size.SMALL);
+                pizza = createPizza(flavorSelected, Size.SMALL.getIntSize());
                 currPrice.setText(String.valueOf(pizza.price()));
             }
             else if (selected.equalsIgnoreCase("Medium")) {
-                pizza.setSize(Size.MEDIUM);
+                pizza = createPizza(flavorSelected, Size.MEDIUM.getIntSize());
                 currPrice.setText(String.valueOf(pizza.price()));
             }
             else if (selected.equalsIgnoreCase("Large")) {
-                pizza.setSize(Size.LARGE);
+                pizza = createPizza(flavorSelected, Size.LARGE.getIntSize());
                 currPrice.setText(String.valueOf(pizza.price()));
             }
         }
@@ -143,61 +133,81 @@ public class ChicagoFragment extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String selected = (String) adapterView.getItemAtPosition(i);
-            String selectedSize = (String) size.getSelectedItem();
-            Size s = Size.getSize(selectedSize);
+            int selectedSize = size.getSelectedItemPosition();
+            ArrayAdapter<CharSequence> selectedTop = null;
             if (selected.equalsIgnoreCase("Build Your Own")) {
                 pizzaImg.setImageResource(R.drawable.chicago_byo);
-                pizza = createPizza("Build Your Own");
+                pizza = createPizza("Build Your Own", selectedSize);
+                crustType.setText(R.string.pan_crust);
                 availableToppings.setEnabled(true);
             }
             else if (selected.equalsIgnoreCase("Deluxe")) {
                 pizzaImg.setImageResource(R.drawable.chicago_deluxe);
-                pizza = createPizza("Deluxe");
+                pizza = createPizza("Deluxe", selectedSize);
+                crustType.setText(R.string.deep_dish_crust);
+                selectedTop = ArrayAdapter.createFromResource(getContext(), R.array.deluxe_toppings, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
                 availableToppings.setEnabled(false);
             }
             else if (selected.equalsIgnoreCase("BBQ Chicken")) {
                 pizzaImg.setImageResource(R.drawable.chicago_bbqchicken);
-                pizza = createPizza("BBQ Chicken");
+                pizza = createPizza("BBQ Chicken", selectedSize);
+                crustType.setText(R.string.pan_crust);
+                selectedTop = ArrayAdapter.createFromResource(getContext(), R.array.BBQ_chicken_toppings, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
                 availableToppings.setEnabled(false);
             }
             else {
                 pizzaImg.setImageResource(R.drawable.chicago_meatzza);
-                pizza = createPizza("Meatzza");
+                pizza = createPizza("Meatzza", selectedSize);
+                crustType.setText(R.string.stuffed_crust);
+                selectedTop = ArrayAdapter.createFromResource(getContext(), R.array.meatzza_toppings, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
                 availableToppings.setEnabled(false);
             }
-            pizza.setSize(s);
             currPrice.setText(String.valueOf(pizza.price()));
         }
-
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {}
     };
 
-    public Pizza createPizza(String pizzaType) {
-        Pizza create;
+    public Pizza createPizza(String pizzaType, int size_n) {
+        Pizza create = null;
+        Size size = Size.getSize(size_n);
         if (pizzaType.equalsIgnoreCase("Build Your Own")) {
-            return chicagoFactory.createBuildYourOwn();
+            create = chicagoFactory.createBuildYourOwn();
+            create.setSize(size);
         }
         else if (pizzaType.equalsIgnoreCase("Deluxe")) {
-            return chicagoFactory.createDeluxe();
-
+            create = chicagoFactory.createDeluxe();
+            create.setSize(size);
         }
         else if (pizzaType.equalsIgnoreCase("BBQ Chicken")) {
-            return chicagoFactory.createBBQChicken();
+            create = chicagoFactory.createBBQChicken();
+            create.setSize(size);
         }
         else if (pizzaType.equalsIgnoreCase("Meatzza")){
-            return chicagoFactory.createMeatzza();
+            create = chicagoFactory.createMeatzza();
+            create.setSize(size);
         }
-        return null;
+        return create;
     }
+
+    //TODO: finish this method using only one listView
+    /*
+    public void onAddToppingClicked() {
+        Object selected = availableToppings.getSelectedItem();
+        int numToppingsCheck;
+        if (numToppingsCheck > 7) {
+            Toast.makeText(getActivity(), "Input not valid: the maximum number of toppings is 7", Toast.LENGTH_LONG).show();
+            return;
+        }
+    }*/
 
     //TODO: implement this (currently a placeholder to test order recyclerview)
     public void addToOrder() {
         int rand = (int)(Math.random()*4+1);
-        Pizza pizza = createPizza("Build Your Own");
-        if(rand==2) pizza = createPizza("Deluxe");
-        if(rand==3) pizza = createPizza("BBQ Chicken");
-        if(rand==4) pizza = createPizza("Meatzza");
+        Pizza pizza = createPizza("Build Your Own", 1);
+        if(rand==2) pizza = createPizza("Deluxe", 1);
+        if(rand==3) pizza = createPizza("BBQ Chicken", 1);
+        if(rand==4) pizza = createPizza("Meatzza", 1);
 
         pizza.setSize(Size.MEDIUM);
         MainActivity.currentOrder.add(pizza);

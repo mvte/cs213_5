@@ -16,8 +16,11 @@
     <string name="remove_button">Remove</string>
     <string name="add_to_order">Add To Order</string>
     <string name="price_label">Price</string>
+    <string name="deep_dish_crust">Deep Dish Crust</string>
+    <string name="pan_crust">Pan Crust</string>
+    <string name="stuffed_crust">Stuffed Crust</string>
 
-    <!-- flavor and size spinner strings !-->
+    <!-- flavor, size, topping spinner/list strings !-->
     <string-array name="size_array">
         <item>Small</item>
         <item>Medium</item>
@@ -42,6 +45,25 @@
         <item>Pineapple</item>
         <item>Provolone</item>
         <item>Sausage</item>
+    </string-array>
+    <string-array name="deluxe_toppings">
+        <item>Sausage</item>
+        <item>Pepperoni</item>
+        <item>Green Pepper</item>
+        <item>Onion</item>
+        <item>Mushroom</item>
+    </string-array>
+    <string-array name="BBQ_chicken_toppings">
+        <item>BBQ Chicken</item>
+        <item>Green Pepper</item>
+        <item>Provolone</item>
+        <item>Cheddar</item>
+    </string-array>
+    <string-array name="meatzza_toppings">
+        <item>Sausage</item>
+        <item>Pepperoni</item>
+        <item>Beef</item>
+        <item>Ham</item>
     </string-array>
 
     <!-- order -->
