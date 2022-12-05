@@ -27,6 +27,12 @@ public class ChicagoFragment extends Fragment {
     private Spinner flavors, size;
     private ListView availableToppings, selectedToppings;
     private Button orderButton;
+    private TextView currPrice;
+
+    /** the factory that makes Chicago Pizzas */
+    private PizzaFactory chicagoFactory = new ChicagoPizza();
+    /** the pizza to be created */
+    private Pizza pizza;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -68,6 +74,7 @@ public class ChicagoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chicago, container, false);
         orderButton = view.findViewById(R.id.orderButton);
+        currPrice = view.findViewById(R.id.chicago_price);
         availableToppings = view.findViewById(R.id.availableToppings);
         ArrayAdapter<CharSequence> toppingsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.toppings_array, layout.simple_list_item_1);
         availableToppings.setAdapter(toppingsAdapter);
@@ -89,6 +96,14 @@ public class ChicagoFragment extends Fragment {
         orderButton.setOnClickListener(onOrderClick);
         size.setOnItemSelectedListener(onSizeSelect);
         flavors.setOnItemSelectedListener(onFlavorSelect);
+
+        pizza = createPizza("Build Your Own");
+        pizza.setSize(Size.SMALL);
+        currPrice.setEnabled(false);
+        currPrice.setText(String.valueOf(pizza.price()));
+
+        ArrayAdapter<CharSequence> selectedToppingsAdapter = new ArrayAdapter(getContext(), layout.simple_list_item_1, pizza.getToppings());
+        selectedToppings.setAdapter(selectedToppingsAdapter);
         // Inflate the layout for this fragment
         return view;
     }
@@ -102,17 +117,23 @@ public class ChicagoFragment extends Fragment {
 
     private AdapterView.OnItemSelectedListener onSizeSelect = new AdapterView.OnItemSelectedListener() {
         @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            switch (i) {
-                case 0:
-                    Toast.makeText(getActivity(), "Small size selected", Toast.LENGTH_SHORT).show();
-                case 1:
-                    Toast.makeText(getActivity(), "Medium size selected", Toast.LENGTH_SHORT).show();
-                case 2:
-                    Toast.makeText(getActivity(), "Large size selected", Toast.LENGTH_SHORT).show();
+        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+            String selected = (String) adapterView.getItemAtPosition(position);
+            String flavorSelected = (String) flavors.getSelectedItem();
+            pizza = createPizza(flavorSelected);
+            if (selected.equalsIgnoreCase("Small")) {
+                pizza.setSize(Size.SMALL);
+                currPrice.setText(String.valueOf(pizza.price()));
+            }
+            else if (selected.equalsIgnoreCase("Medium")) {
+                pizza.setSize(Size.MEDIUM);
+                currPrice.setText(String.valueOf(pizza.price()));
+            }
+            else if (selected.equalsIgnoreCase("Large")) {
+                pizza.setSize(Size.LARGE);
+                currPrice.setText(String.valueOf(pizza.price()));
             }
         }
-
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {}
     };
@@ -120,19 +141,51 @@ public class ChicagoFragment extends Fragment {
     private AdapterView.OnItemSelectedListener onFlavorSelect = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            switch (i) {
-                case 0:
-                    Toast.makeText(getActivity(), "Build Your Own selected", Toast.LENGTH_SHORT).show();
-                case 1:
-                    Toast.makeText(getActivity(), "Deluxe selected", Toast.LENGTH_SHORT).show();
-                case 2:
-                    Toast.makeText(getActivity(), "BBQ Chicken selected", Toast.LENGTH_SHORT).show();
-                case 3:
-                    Toast.makeText(getActivity(), "Meatzza selected", Toast.LENGTH_SHORT).show();
+            String selected = (String) adapterView.getItemAtPosition(i);
+            String selectedSize = (String) size.getSelectedItem();
+            Size s = Size.getSize(selectedSize);
+            if (selected.equalsIgnoreCase("Build Your Own")) {
+                pizzaImg.setImageResource(R.drawable.chicago_byo);
+                pizza = createPizza("Build Your Own");
+                availableToppings.setEnabled(true);
             }
+            else if (selected.equalsIgnoreCase("Deluxe")) {
+                pizzaImg.setImageResource(R.drawable.chicago_deluxe);
+                pizza = createPizza("Deluxe");
+                availableToppings.setEnabled(false);
+            }
+            else if (selected.equalsIgnoreCase("BBQ Chicken")) {
+                pizzaImg.setImageResource(R.drawable.chicago_bbqchicken);
+                pizza = createPizza("BBQ Chicken");
+                availableToppings.setEnabled(false);
+            }
+            else {
+                pizzaImg.setImageResource(R.drawable.chicago_meatzza);
+                pizza = createPizza("Meatzza");
+                availableToppings.setEnabled(false);
+            }
+            pizza.setSize(s);
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {}
     };
+
+    public Pizza createPizza(String pizzaType) {
+        Pizza create;
+        if (pizzaType.equalsIgnoreCase("Build Your Own")) {
+            return chicagoFactory.createBuildYourOwn();
+        }
+        else if (pizzaType.equalsIgnoreCase("Deluxe")) {
+            return chicagoFactory.createDeluxe();
+
+        }
+        else if (pizzaType.equalsIgnoreCase("BBQ Chicken")) {
+            return chicagoFactory.createBBQChicken();
+        }
+        else if (pizzaType.equalsIgnoreCase("Meatzza")){
+            return chicagoFactory.createMeatzza();
+        }
+        return null;
+    }
 }
