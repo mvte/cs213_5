@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         storeOrdersFragment = new StoreOrdersFragment();
 
         welcomeTextView = findViewById(R.id.tvW);
+        welcomeTextView.setText(R.string.welcome_text);
     }
 
     @Override

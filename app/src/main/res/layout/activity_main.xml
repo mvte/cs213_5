@@ -22,7 +22,6 @@
         android:layout_width="134dp"
         android:layout_height="44dp"
         android:gravity="center"
-        android:text="@string/welcome_text"
         app:layout_constraintBottom_toBottomOf="@+id/flFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/flFragment"
