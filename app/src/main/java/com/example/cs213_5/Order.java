@@ -64,7 +64,7 @@ public class Order implements Customizable{
 
     /**
      * Gets the list of pizzas in the order.
-     * @return The list of Pizzas as an observable list.
+     * @return The list of Pizzas as an ArrayList.
      */
     public ArrayList<Pizza> getPizzas() {
         return pizzas;
@@ -104,7 +104,7 @@ public class Order implements Customizable{
      * @return The total cost of the order.
      */
     public double getTotal() {
-        return subtotal + getSalesTax();
+        return getSubtotal() + getSalesTax();
     }
 
     /**

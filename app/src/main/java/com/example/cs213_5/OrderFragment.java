@@ -19,7 +19,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class OrderFragment extends Fragment implements RecyclerViewInterface{
-    //TODO: add functionality to buttons, fix prices not updating
+    //TODO: implement PREVIEW_ONLY option, which makes it so that the user can only see the order
+    //and make order parcelable?
+    private static final String PREVIEW_ONLY = "previewOnly";
 
     private Order order;
     private ArrayList<Pizza> pizzas;
@@ -28,7 +30,6 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
     private TextView tvEmpty, tvSubtotal, tvTax, tvTotal;
     private EditText etId;
     private Button place, clear;
-
 
     public OrderFragment() {
         // Required empty public constructor
@@ -114,13 +115,17 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         }
 
         MainActivity.storeOrder.add(order);
-        clearOrder(false);
         MainActivity.currentOrder = new Order();
         order = MainActivity.currentOrder;
+        pizzas = order.getPizzas();
 
         etId.setText(String.valueOf(order.getId()));
-        recyclerView.requestLayout();
+
+        OrderRecyclerViewAdapter adapter = new OrderRecyclerViewAdapter(requireActivity(), order, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.forceLayout();
         updatePrice();
+        clearOrder(false);
 
         Toast.makeText(getActivity(), getResources().getString(R.string.order_success), Toast.LENGTH_SHORT).show();
     }
