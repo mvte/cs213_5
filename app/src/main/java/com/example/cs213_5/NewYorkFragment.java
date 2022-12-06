@@ -29,21 +29,33 @@ public class NewYorkFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    /** The Image View that holds the pizza photo */
     private ImageView pizzaImg;
+
+    /** Spinners that contain preset user options for pizza flavor and pizza size */
     private Spinner flavors, size;
+
+    /** A list of preset user options for pizza toppings */
     private ListView availableToppings;
+
+    /** Button to add current pizza to current order */
     private Button orderButton;
+
+    /** Non-user-editable textboxes that display current price of pizza and the current crust type depending on flavor selection */
     private TextView currPrice, crustType;
 
-    /** the factory that makes Chicago Pizzas */
+    /** The factory that makes New York Pizzas */
     private PizzaFactory nyFactory = new NYPizza();
-    /** the pizza to be created */
+    /** The pizza to be created */
     private Pizza pizza;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    /**
+     * A required empty public constructor to build the fragment.
+     */
     public NewYorkFragment() {
         // Required empty public constructor
     }
@@ -66,6 +78,10 @@ public class NewYorkFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Loads the previous instance state of the fragment, if saved from last use.
+     * @param savedInstanceState a bundle storing the previous state of the fragment activity
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +91,13 @@ public class NewYorkFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the ChicagoFragment view and displays the Fragment
+     * @param inflater the inflater that instantiates the contents of a specified XML file
+     * @param container the container holding the view items
+     * @param savedInstanceState a bundle storing the previous state of the fragment activity
+     * @return the created ChicagoFragment view built from XML
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,6 +130,10 @@ public class NewYorkFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Creates a listener for Toppings Selection. Prevents the user from selecting more than 7
+     * toppings if "Build Your Own" Pizza is selected.
+     */
     private void setupToppingsSelectListener() {
         availableToppings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -127,6 +154,9 @@ public class NewYorkFragment extends Fragment {
         });
     }
 
+    /**
+     * A listener that adds the current pizza, in its current build state, to the current order.
+     */
     private View.OnClickListener onOrderClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -135,6 +165,10 @@ public class NewYorkFragment extends Fragment {
         }
     };
 
+    /**
+     * A listener that changes the current pizza size, depending on the selection in the Size spinner.
+     * Updates the price to reflect change in size.
+     */
     private AdapterView.OnItemSelectedListener onSizeSelect = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -156,6 +190,10 @@ public class NewYorkFragment extends Fragment {
         public void onNothingSelected(AdapterView<?> adapterView) {}
     };
 
+    /**
+     * A listener that changes the current pizza flavor, depending on the selection in the Flavor spinner.
+     * Updates the price to reflect change in flavor.
+     */
     private AdapterView.OnItemSelectedListener onFlavorSelect = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -191,6 +229,12 @@ public class NewYorkFragment extends Fragment {
         public void onNothingSelected(AdapterView<?> adapterView) {}
     };
 
+    /**
+     * Creates a pizza based on the selected flavor and size.
+     * @param pizzaType the flavor of pizza to be created
+     * @param size_n the size of the pizza to be created
+     * @return create, the Pizza that is created
+     */
     public Pizza createPizza(String pizzaType, int size_n) {
         Pizza create = null;
         Size size = Size.getSize(size_n);
@@ -213,6 +257,9 @@ public class NewYorkFragment extends Fragment {
         return create;
     }
 
+    /**
+     * Adds a pizza to the current order.
+     */
     private void addToOrder() {
         MainActivity.currentOrder.add(pizza);
 
@@ -220,6 +267,9 @@ public class NewYorkFragment extends Fragment {
         resetFields();
     }
 
+    /**
+     * Resets all fields in the Fragment to their default values.
+     */
     private void resetFields() {
         size.setSelection(0);
         flavors.setSelection(0);
