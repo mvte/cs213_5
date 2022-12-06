@@ -11,14 +11,6 @@ import java.util.ArrayList;
 public class BuildYourOwn extends Pizza {
 
     /**
-     * Constructs a Build Your Own Pizza with default values (pan crust).
-     */
-    public BuildYourOwn() {
-        this.crust = Crust.PAN;
-        this.toppings = new ArrayList<Topping>();
-    }
-
-    /**
      * Constructs a Build Your Own Pizza given the crust and pizza type
      * @param crust the crust of this pizza.
      * @param pref "NY" or "Chicago", depending on which factory called this pizza.

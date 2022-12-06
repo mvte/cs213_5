@@ -49,21 +49,11 @@ public enum Size {
     }
 
     /**
-     * Searches for a Size enum given a String.
-     * @param size_s the String to search for
+     * Searches for a Size enum given an integer size.
+     * @param size_n the int to search for
      * @return the corresponding Size in the enum class,
      *         null if the enum object is not found
      */
-    public static Size getSize(String size_s) {
-        Size[] sizes = Size.values();
-        for (Size s : sizes) {
-            if (size_s.equalsIgnoreCase(s.size_s)) {
-                return s;
-            }
-        }
-        return null;
-    }
-
     public static Size getSize(int size_n) {
         Size[] sizes = Size.values();
         for (Size s : sizes) {
