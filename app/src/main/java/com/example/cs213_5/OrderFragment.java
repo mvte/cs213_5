@@ -19,9 +19,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class OrderFragment extends Fragment implements RecyclerViewInterface{
-    //TODO: implement PREVIEW_ONLY option, which makes it so that the user can only see the order
-    //and make order parcelable?
-    private static final String PREVIEW_ONLY = "previewOnly";
 
     private Order order;
     private ArrayList<Pizza> pizzas;
