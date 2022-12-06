@@ -98,7 +98,6 @@ public class ChicagoFragment extends Fragment {
         return view;
     }
 
-    // TODO: fix toppings selector
     private void setupToppingsSelectListener() {
         availableToppings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -154,7 +153,6 @@ public class ChicagoFragment extends Fragment {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String selected = (String) adapterView.getItemAtPosition(i);
             int selectedSize = size.getSelectedItemPosition();
-            ArrayAdapter<CharSequence> selectedTop = null;
             if (selected.equalsIgnoreCase("Build Your Own")) {
                 pizzaImg.setImageResource(R.drawable.chicago_byo);
                 pizza = createPizza("Build Your Own", selectedSize);

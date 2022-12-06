@@ -106,7 +106,7 @@
         android:layout_width="198dp"
         android:layout_height="26dp"
         android:layout_marginTop="64dp"
-        android:text="Crust"
+        android:text="@string/crust_label"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
