@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,8 +149,12 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 pizzas.remove(position);
-                recyclerView.requestLayout();
+                recyclerView.getAdapter().notifyItemRemoved(position);
                 updatePrice();
+
+                if (pizzas.isEmpty()) {
+                    tvEmpty.setText(R.string.empty_order_text);
+                }
             }
         });
         alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
