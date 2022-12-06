@@ -4,15 +4,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.*;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.R.layout;
-
-import java.sql.Array;
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -183,7 +179,7 @@ public class ChicagoFragment extends Fragment {
                 crustType.setText(R.string.stuffed_crust);
                 availableToppings.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.meatzza_toppings, layout.simple_list_item_1));
             }
-            currPrice.setText(String.valueOf(pizza.price()));
+            currPrice.setText(String.format("$%.2f", pizza.price()));
         }
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {}
