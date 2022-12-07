@@ -87,4 +87,7 @@
     <string name="toppings_template">toppings, toppings, toppings</string>
     <string name="price_template">$XX.XX</string>
 
+    <!-- store orders -->
+    <string name="empty_store_orders_text">There are no orders.</string>
+
 </resources>
