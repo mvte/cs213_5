@@ -37,9 +37,9 @@ public class ChicagoFragment extends Fragment {
     /** Non-user-editable textboxes that display current price of pizza and the current crust type depending on flavor selection */
     private TextView currPrice, crustType;
 
-    /** the factory that makes Chicago Pizzas */
+    /** The factory that makes Chicago Pizzas */
     private PizzaFactory chicagoFactory = new ChicagoPizza();
-    /** the pizza to be created */
+    /** The pizza to be created */
     private Pizza pizza;
 
     // TODO: Rename and change types of parameters
@@ -72,8 +72,8 @@ public class ChicagoFragment extends Fragment {
     }
 
     /**
-     *
-     * @param savedInstanceState
+     * Loads the previous instance state of the fragment, if saved from last use.
+     * @param savedInstanceState a bundle storing the previous state of the fragment activity
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class ChicagoFragment extends Fragment {
      * @param inflater the inflater that instantiates the contents of a specified XML file
      * @param container the container holding the view items
      * @param savedInstanceState a bundle storing the previous state of the fragment activity
-     * @return
+     * @return the created ChicagoFragment view built from XML
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -44,6 +44,12 @@ public enum Topping {
         this.topping = topping;
     }
 
+    /**
+     * Searches for a Topping enum given a Topping string.
+     * @param str the String to search for
+     * @return the corresponding Topping in the enum class,
+     *         null if the enum object is not found
+     */
     public static Topping getTopping(String str) {
         Topping[] toppings = Topping.values();
         for (Topping t : toppings) {
@@ -63,6 +69,4 @@ public enum Topping {
     public String toString() {
         return topping;
     }
-
-
 }
