@@ -18,15 +18,29 @@ import java.util.ArrayList;
 public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecyclerViewAdapter.MyViewHolder> {
     /** Needed for inflating layout **/
     private Context context;
+    /** ArrayList of orders */
     private ArrayList<Order> orders;
+    /** The interface to be implemented */
     private RecyclerViewInterface rvInterface;
 
+    /**
+     * Constructor for StoreRecyclerViewAdapter
+     * @param context the context of the RecyclerView
+     * @param storeOrders the StoreOrder instance to be represented
+     * @param rvInterface the RecyclerViewInterface to be implemented
+     */
     public StoreRecyclerViewAdapter(Context context, StoreOrder storeOrders, RecyclerViewInterface rvInterface) {
         this.context = context;
         this.orders = storeOrders.getOrders();
         this.rvInterface = rvInterface;
     }
 
+    /**
+     * Creates a new View Holder.
+     * @param parent The parent ViewGroup
+     * @param viewType the view type constant
+     * @return
+     */
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,6 +50,11 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecycler
         return new StoreRecyclerViewAdapter.MyViewHolder(view, rvInterface);
     }
 
+    /**
+     * Binds the data of an order to the the View Holder.
+     * @param holder the view holder of the data
+     * @param position the position of the order in the array to be displayed
+     */
     @Override
     public void onBindViewHolder(@NonNull StoreRecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.tvName.setText("Order #" + orders.get(position).getId());
@@ -43,6 +62,12 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecycler
         holder.tvPrice.setText(String.format("$%.2f", orders.get(position).getTotal()));
     }
 
+    /**
+     * Creates a SpannableStringBuilder that contains stylized information of all the pizzas in an
+     * order. Each pizza's title (size and name) will be bolded, while the toppings will be normal.
+     * @param order
+     * @return
+     */
     private SpannableStringBuilder generatePizzaString(Order order) {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
 
@@ -62,6 +87,12 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecycler
         return ssb;
     }
 
+    /**
+     * Creates a formatted string containing all the toppings of a pizza. Each line will have a
+     * maximum of three toppings.
+     * @param p the pizza whose toppings are to be displayed
+     * @return the formatted topping string
+     */
     private String generateToppingString(Pizza p) {
         if(p.getToppings().isEmpty()) {
             return "";
@@ -78,14 +109,28 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecycler
         return toppingsString + "\n";
     }
 
+    /**
+     * Gets the amount of items in the orders array.
+     * @return the amount of items in the orders array.
+     */
     @Override
     public int getItemCount() {
         return orders.size();
     }
 
+    /**
+     * Represents the View Holder which will display all the
+     * @author Jan Marzan, Brian Zhang
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvContents, tvPrice;
 
+        /**
+         * Constructor that binds view objects to their respective views and the parent view to an
+         * onClick listener.
+         * @param itemView the item view
+         * @param rvInterface the RecyclerViewInterface to be implemented
+         */
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface rvInterface) {
             super(itemView);
 
