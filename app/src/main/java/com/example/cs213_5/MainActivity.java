@@ -11,18 +11,35 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+/**
+ * The Main Activity serves to provide functionality to the base view of the application, containing
+ * the bottom navigation bar and the fragment container.
+ * @author Jan Marzan, Brian Zhang
+ */
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
+    /** The bottom navigation bar displaying all available fragments */
     BottomNavigationView navigation;
+    /** The fragment that allows for the creation of Chicago Style pizzas */
     ChicagoFragment chicagoFragment;
+    /** The fragment that allows for the creation of New York Style pizzas */
     NewYorkFragment newYorkFragment;
+    /** The fragment that allows for the editing and placing of individual orders */
     OrderFragment orderFragment;
+    /** The fragment that allows for the viewing of all orders and canceling of individual orders */
     StoreOrdersFragment storeOrdersFragment;
+    /** A text view displaying welcome text on first start up */
     TextView welcomeTextView;
 
+    /** The current order */
     public static Order currentOrder = new Order();
+    /** The store orders */
     public static StoreOrder storeOrder = new StoreOrder();
 
+    /**
+     * Starts the Main Activity. Binds view objects to their respective views in the layout.
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         }
     }
 
+    /**
+     * Begins fragment transaction for a navigation menu item's respective fragment when selected.
+     * @param item the navigation menu item
+     * @return true if the fragment transaction was successful
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         welcomeTextView.setText("");

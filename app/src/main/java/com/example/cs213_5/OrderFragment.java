@@ -18,20 +18,38 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * The OrderFragment class displays all information regarding the current order and allows the user
+ * to edit the order. The information regarding the order includes the Order ID, all the pizzas
+ * in the order, and the prices of the order (subtotal, tax, total). The user can remove a pizza
+ * or clear all the pizzas in the order.
+ * @author Jan Marzan, Brian Zhang
+ */
 public class OrderFragment extends Fragment implements RecyclerViewInterface{
-
+    /** The order whose information is to be displayed */
     private Order order;
+    /** The ArrayList of pizzas from the order */
     private ArrayList<Pizza> pizzas;
-
+    /** The RecyclerView that displays information about all the pizzas in an order */
     private RecyclerView recyclerView;
+    /** TextViews related to the prices */
     private TextView tvEmpty, tvSubtotal, tvTax, tvTotal;
+    /** An non-editable EditText that displays the Order ID*/
     private EditText etId;
+    /** Buttons that allow the user to place or clear the order */
     private Button place, clear;
 
+    /**
+     * Required empty constructor for a fragment
+     */
     public OrderFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Starts the Order Fragment
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +58,13 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         pizzas = order.getPizzas();
     }
 
+    /**
+     * Instantiates the fragment's user interface view
+     * @param inflater the layout inflater
+     * @param container the view group container
+     * @param savedInstanceState the saved instanced state
+     * @return the created view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,11 +84,19 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         return view;
     }
 
+    /**
+     * Displays the order's current ID in the order id in the given view.
+     * @param view the associated parent view
+     */
     private void setupOrderId(View view) {
         etId = view.findViewById(R.id.order_id);
         etId.setText(String.valueOf(order.getId()));
     }
 
+    /**
+     * Sets up the order RecyclerView and binds the order to the view.
+     * @param view the associated parent view
+     */
     private void setupRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.orderRecyclerView);
         OrderRecyclerViewAdapter adapter = new OrderRecyclerViewAdapter(requireActivity(), order, this);
@@ -71,6 +104,10 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
     }
 
+    /**
+     * Sets up the order's price views.
+     * @param view the associated parent view.
+     */
     private void setupOrderAmounts(View view) {
         tvSubtotal = view.findViewById(R.id.tvSubtotal);
         tvTax = view.findViewById(R.id.tvTax);
@@ -78,6 +115,10 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         updatePrice();
     }
 
+    /**
+     * Defines functionality for the clear order and place order button.
+     * @param view the associated parent view
+     */
     private void setupButtonListeners(View view) {
         clear = view.findViewById(R.id.clearOrderButton);
         clear.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +137,9 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         });
     }
 
+    /**
+     * Updates the price views with the order's current prices.
+     */
     private void updatePrice() {
         tvSubtotal.setText(R.string.subtotal);
         tvSubtotal.append(": " + String.format("$%.2f", order.getSubtotal()));
@@ -105,6 +149,10 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         tvTotal.append(": " + String.format("$%.2f", order.getTotal()));
     }
 
+    /**
+     * Places the current order by adding it to the store order. If there are no pizzas in the
+     * current order, the order will not be placed.
+     */
     public void placeOrder() {
         if(pizzas.isEmpty()) {
             Toast.makeText(getActivity(), getResources().getString(R.string.empty_order_text), Toast.LENGTH_SHORT).show();
@@ -127,6 +175,10 @@ public class OrderFragment extends Fragment implements RecyclerViewInterface{
         Toast.makeText(getActivity(), getResources().getString(R.string.order_success), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Clears the order of all pizzas.
+     * @param showToast whether or not a confirmation toast should be shown
+     */
     public void clearOrder(boolean showToast) {
         pizzas.clear();
         recyclerView.requestLayout();

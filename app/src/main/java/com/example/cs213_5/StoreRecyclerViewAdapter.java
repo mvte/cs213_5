@@ -15,6 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * The StoreRecyclerViewAdapter provides the means to bind all of the store's orders' data to views
+ * that will be displayed in the Store Order RecyclerView.
+ * @author Jan Marzan, Brian Zhang
+ */
 public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecyclerViewAdapter.MyViewHolder> {
     /** Needed for inflating layout **/
     private Context context;
@@ -26,7 +31,7 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecycler
     /**
      * Constructor for StoreRecyclerViewAdapter
      * @param context the context of the RecyclerView
-     * @param storeOrders the StoreOrder instance to be represented
+     * @param storeOrders the StoreOrder whose orders' data will be displayed
      * @param rvInterface the RecyclerViewInterface to be implemented
      */
     public StoreRecyclerViewAdapter(Context context, StoreOrder storeOrders, RecyclerViewInterface rvInterface) {
@@ -36,10 +41,10 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecycler
     }
 
     /**
-     * Creates a new View Holder.
+     * Creates a new ViewHolder.
      * @param parent The parent ViewGroup
      * @param viewType the view type constant
-     * @return
+     * @return the created ViewHolder object
      */
     @NonNull
     @Override
@@ -119,10 +124,11 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<StoreRecycler
     }
 
     /**
-     * Represents the View Holder which will display all the
+     * Represents the View Holder which will display all the information related to an individual order.
      * @author Jan Marzan, Brian Zhang
      */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
+        /** TextViews to display information about an order's id, pizzas, and price, respectively */
         TextView tvName, tvContents, tvPrice;
 
         /**

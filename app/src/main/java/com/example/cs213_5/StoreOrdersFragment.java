@@ -17,14 +17,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- *
+ * The StoreOrdersFragment class displays all the orders placed for the store by binding the store
+ * order data to the store order layout.
+ * @author Jan Marzan, Brian Zhang
  */
 public class StoreOrdersFragment extends Fragment implements RecyclerViewInterface {
     /** The associated Store Order object*/
     private StoreOrder storeOrder;
     /** The ArrayList containing all of the Store's Orders*/
     private ArrayList<Order> orders;
-    /** The RecyclerView containing all the store's orders*/
+    /** The RecyclerView that displays all the store's orders*/
     RecyclerView recyclerView;
     TextView tvEmpty;
 
@@ -52,7 +54,7 @@ public class StoreOrdersFragment extends Fragment implements RecyclerViewInterfa
      * @param inflater the layout inflater
      * @param container the view group container
      * @param savedInstanceState the saved instanced state
-     * @return
+     * @return the created view
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
