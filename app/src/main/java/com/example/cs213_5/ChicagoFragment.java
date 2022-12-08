@@ -11,16 +11,12 @@ import android.widget.*;
 import android.R.layout;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChicagoFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * The ChicagoFragment class displays all information regarding the Chicago Pizza being created and allows the user
+ * to modify the pizza. The information regarding the Chicago Pizza includes the flavor, size, toppings (if
+ * applicable), crust, and the price of the pizza.
+ * @author Jan Marzan, Brian Zhang
  */
 public class ChicagoFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     /** The Image View that holds the pizza photo */
     private ImageView pizzaImg;
@@ -42,33 +38,11 @@ public class ChicagoFragment extends Fragment {
     /** The pizza to be created */
     private Pizza pizza;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     /**
      * A required empty public constructor to build the fragment.
      */
     public ChicagoFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChicagoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChicagoFragment newInstance(String param1, String param2) {
-        ChicagoFragment fragment = new ChicagoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     /**
@@ -78,10 +52,6 @@ public class ChicagoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     /**
@@ -165,7 +135,6 @@ public class ChicagoFragment extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
             String selected = (String) adapterView.getItemAtPosition(position);
-            String flavorSelected = (String) flavors.getSelectedItem();
             if (selected.equalsIgnoreCase("Small")) {
                 pizza.setSize(Size.SMALL);
             }

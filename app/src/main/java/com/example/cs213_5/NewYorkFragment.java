@@ -18,16 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link NewYorkFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * The NewYorkFragment class displays all information regarding the New York Pizza being created and allows the user
+ * to modify the pizza. The information regarding the New York Pizza includes the flavor, size, toppings (if
+ * applicable), crust, and the price of the pizza.
+ * @author Jan Marzan, Brian Zhang
  */
 public class NewYorkFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     /** The Image View that holds the pizza photo */
     private ImageView pizzaImg;
@@ -49,33 +45,11 @@ public class NewYorkFragment extends Fragment {
     /** The pizza to be created */
     private Pizza pizza;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     /**
      * A required empty public constructor to build the fragment.
      */
     public NewYorkFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewYorkFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NewYorkFragment newInstance(String param1, String param2) {
-        NewYorkFragment fragment = new NewYorkFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     /**
@@ -85,10 +59,6 @@ public class NewYorkFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     /**
