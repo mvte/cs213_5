@@ -55,7 +55,8 @@
         app:layout_constraintBottom_toTopOf="@+id/orderRecyclerView"
         app:layout_constraintStart_toEndOf="@+id/tv_id"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+        android:importantForAutofill="no" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -99,7 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="@string/place_order_button" />
+            android:text="@string/place_order_button"
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
     </LinearLayout>
 
     <Button
@@ -109,6 +111,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/clear_order_button"
         app:layout_constraintEnd_toEndOf="@+id/tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/orderRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/orderRecyclerView"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
